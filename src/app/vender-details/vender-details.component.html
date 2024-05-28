@@ -1,0 +1,26 @@
+<p-card>
+
+    <div class="grid p-fluid align-items-center justify-content-center">
+        <div class="col-12 md:col-8 lg:col-6 grid justify-content-center">
+            <div class="col-12 md:col-6 lg:col-6 flex flex-wrap justify-content-center" *ngFor="let vendor of vendorList">
+                <div class="shadow-2 m-3 surface-card text-center p-3 border-round-sm h-6rem w-14rem flex align-items-center justify-content-center font-semibold vender-name"  (click)="getVendorData(vendor)">{{vendor.
+                vendorName}} ({{vendor.vendorId}})</div>
+            </div>
+        </div>
+    </div>
+    </p-card>
+<p-dialog [header]="selectedVendor?.vendorName" [(visible)]="showVendorDetails" [modal]="true" [style]="{ 'width': '430px' }"
+  (onHide)="showVendorDetails=false" [draggable]="false" [resizable]="false">
+    <div class="grid p-fluid ">
+            <div class="col-12 md:col-12 lg:col-12" *ngFor="let vendor of selectedVendorDetails">
+                <label [for]="vendor.id">{{ vendor.fieldName}}</label>
+                <br>
+                <textarea pInputTextarea [rows]="1" [autoResize]="true"  [(ngModel)]="vendor.fieldValue" [id]="vendor.id" ></textarea>
+                </div>
+    </div>
+    <div class="grid flex flex-wrap justify-content-end mt-4 ">
+        <p-button class="primarybtn" label="Close" (click)="showVendorDetails=false"></p-button>&nbsp;&nbsp;
+      <p-button class="primarybtn" label="Update" (click)="updateData()"></p-button>
+    </div>
+</p-dialog>
+<p-toast></p-toast>

@@ -1,0 +1,194 @@
+<p-toast></p-toast>
+<p-card>
+    <div>
+        <button pButton type="button" label="Back" (click)="goBack()" class="back"></button>
+    </div>
+    <p-steps [model]="steps" [(activeIndex)]="activeIndex" [readonly]="false" styleClass="steps-custom">
+        <ng-template pTemplate="item" let-item>
+            {{item.label}}
+        </ng-template>
+    </p-steps>
+
+    <form [formGroup]="createAndEditForm">
+        <div *ngIf="activeIndex === 0">
+            <panel>
+                <div class="grid p-fluid">
+                    <div class="col-12 md:col-6 lg:col-4">
+                        <label for="name">Customer Name</label>
+                        <input id="name" type="text" formControlName="name" placeholder="Enter Name" pInputText />
+                        <snap *ngIf="createAndEditForm.get('name').invalid && createAndEditForm.get('name').touched"
+                            class="p-error">Name is required.</snap>
+                        <span class="p-error" *ngIf="createAndEditForm.controls.name.errors?.pattern">Please enter
+                            characters
+                            only</span>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4">
+                        <label for="phone">Phone Number</label>
+                        <input id="phone" type="number" formControlName="phone" pInputText maxlength="11"
+                            placeholder="Enter Phone Number" />
+                        <span *ngIf="createAndEditForm.get('phone').invalid && createAndEditForm.get('phone').touched"
+                            class="p-error">Phone Number is required.</span>
+                        <span class="p-error"
+                            *ngIf="createAndEditForm.controls.phone.errors?.minlength && createAndEditForm.controls.phone.errors?.maxlength || createAndEditForm.controls.phone.errors?.pattern">Please
+                            enter valid phone number</span>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4">
+                        <label class="textFont">Country</label>
+                        <p-dropdown placeholder="Select Country" [options]="country" optionLabel="name"
+                            optionValue="code" formControlName="country" [showClear]="true">
+                        </p-dropdown>
+                            <span *ngIf="(createAndEditForm.get('country')?.touched || createAndEditForm.get('country')?.dirty )&& createAndEditForm.get('country').invalid && createAndEditForm.get('country').errors.required ">
+                                Country is required.
+                            </span>
+                    </div>
+                </div>
+                <div class="grid p-fluid">
+                    <div class="col-12 md:col-6 lg:col-4">
+                        <label for="state">State</label>
+                        <input id="state" type="text" formControlName="state" pInputText placeholder="Enter State" />
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4">
+                        <label for="postalCode">Postal Code</label>
+                        <input id="postalCode" type="text" formControlName="postalCode" pInputText
+                            placeholder="Enter Postal Code" />
+                    </div>
+
+                    <div class="col-12 md:col-6 lg:col-4">
+                        <label for="address1">Address 1</label>
+                        <input id="address1" type="text" formControlName="address1" pInputText
+                            placeholder="Enter Address1" />
+                        <span
+                            *ngIf="createAndEditForm.get('address1').invalid && createAndEditForm.get('address1').touched"
+                            class="p-error">Address 1 is required.</span>
+                    </div>
+                </div>
+
+                <div class="grid p-fluid">
+                    <div class="col-12 md:col-6 lg:col-4">
+                        <label for="address2">Address 2</label>
+                        <input id="address2" type="text" formControlName="address2" pInputText
+                            placeholder="Enter Address2" />
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4">
+                        <label for="contactName">Contact Name</label>
+                        <input id="contactName" type="text" formControlName="contactName" pInputText
+                            placeholder="Enter Contact Name" />
+
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4">
+                        <label for="status">Status</label>
+                        <p-dropdown placeholder="Select Status" [options]="statusOptions" optionLabel="name"
+                            optionValue="code" formControlName="status" [showClear]="true"> </p-dropdown>
+                    </div>
+                </div>
+            </panel>
+        </div>
+
+        <div *ngIf="activeIndex === 1">
+            <br>
+            <div class="grid p-fluid">
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label for="controllingShipper">Controlling Shipper</label>
+                    <input id="controllingShipper" type="text" formControlName="controllingShipper" pInputText
+                        placeholder="Enter Controlling Shipper" />
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label for="allowAsShipper">Allow As Shipper</label>
+                    <p-dropdown placeholder="Select Allow As Shipper" [options]="yesOrNo" optionLabel="name"
+                        optionValue="code" formControlName="allowAsShipper" [showClear]="true"> </p-dropdown>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label for="allowAsBillTo">Allow As Bill To</label>
+                    <p-dropdown placeholder="Select Allow As Bill To" [options]="yesOrNo" optionLabel="name"
+                        optionValue="code" formControlName="allowAsBillTo" [showClear]="true"> </p-dropdown>
+                </div>
+            </div>
+
+            <div class="grid p-fluid">
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label for="allowAsLoadAt">Allow As Load At</label>
+                    <p-dropdown placeholder="Select Allow As Load At" [options]="yesOrNo" optionLabel="name"
+                        optionValue="code" formControlName="allowAsLoadAt" [showClear]="true"> </p-dropdown>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label for="allowAsConsignee">Allow As Consignee</label>
+                    <p-dropdown placeholder="Select Allow As Consignee" [options]="yesOrNo" optionLabel="name"
+                        optionValue="code" formControlName="allowAsConsignee" [showClear]="true"> </p-dropdown>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label for="subscriptionType">Subscription Type</label>
+                    <p-dropdown placeholder="Select Allow As Consignee" [options]="vendors" optionLabel="value"
+                        optionValue="label" formControlName="subscriptionType" [showClear]="true"> </p-dropdown>
+                </div>
+            </div>
+
+            <div class="grid p-fluid">
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label for="controlling">Controlling</label>
+                    <p-dropdown placeholder="Select Controlling" [options]="yesOrNo" optionLabel="name"
+                        optionValue="code" formControlName="controlling" [showClear]="true"> </p-dropdown>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label for="billTo">Bill To</label>
+                    <p-dropdown placeholder="Select Bill To" [options]="yesOrNo" optionLabel="name" optionValue="code"
+                        formControlName="billTo" [showClear]="true"> </p-dropdown>
+
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label for="shipper">Shipper</label>
+                    <p-dropdown placeholder="Select Shipper" [options]="yesOrNo" optionLabel="name" optionValue="code"
+                        formControlName="shipper" [showClear]="true"> </p-dropdown>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="activeIndex === 2">
+            <br>
+            <div class="grid p-fluid">
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label>Tracking Required</label>
+                    <p-dropdown placeholder="Select Tracking Required" [options]="yesOrNo" optionLabel="name"
+                        optionValue="code" formControlName="trackingRequired" [showClear]="true"> </p-dropdown>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label for="transmissionId">Transmission Id</label>
+                    <input id="transmissionId" type="text" formControlName="transmissionId" pInputText
+                        placeholder="Enter Transmission Id" />
+
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label>Is API</label>
+                    <p-dropdown placeholder="Select Is API" [options]="yesOrNo" optionLabel="name" optionValue="code"
+                        formControlName="isAPI" [showClear]="true"> </p-dropdown>
+                </div>
+            </div>
+            <div class="grid p-fluid">
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label for="apiVersion">API Version</label>
+                    <input id="apiVersion" type="text" formControlName="apiVersion" pInputText
+                        placeholder="Enter API Version" />
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label for="thirdPartyService">Third Party Service</label>
+                    <input id="thirdPartyService" type="text" formControlName="thirdPartyService" pInputText
+                        placeholder="Enter Third Party Service" />
+                </div>
+            </div>
+        </div>
+        <!-- Add more fieldsets for additional steps -->
+        <br>
+        <div class="grid p-fluid">
+            <div class="col-12 md:col-6 lg:col-2">
+                <button type="button" pButton label="Back" (click)="prevStep()" *ngIf="activeIndex > 0"
+                    class="sub"></button>
+            </div>
+            <div class="col-12 md:col-2 lg:col-2">
+                <button type="button" pButton label="Next" (click)="nextStep()" *ngIf="activeIndex < steps.length - 1"
+                    class="sub"></button>
+                <button type="submit" pButton label="Submit" *ngIf="activeIndex === steps.length - 1" class="sub"
+                    (click)="updateCustomer()"></button>
+            </div>
+        </div>
+    </form>
+</p-card>
