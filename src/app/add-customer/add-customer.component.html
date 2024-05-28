@@ -2,7 +2,7 @@
 <p-card>
     <p-steps [model]="steps" [(activeIndex)]="activeIndex" [readonly]="false" styleClass="steps-custom">
         <ng-template pTemplate="item" let-item>
-            {{item.label}}
+            hjghjfdsg
         </ng-template>
     </p-steps>
 
@@ -23,7 +23,7 @@
                         <label for="phone">Phone Number</label>
                         <input id="phone" type="number" formControlName="phone" pInputText maxlength="11"
                             placeholder="Enter Phone Number" />
-                            <span class="p-error" *ngIf="createAndEditForm.get('phone')?.touched &&
+                        <span class="p-error" *ngIf="createAndEditForm.get('phone')?.touched &&
                             createAndEditForm.get('phone')?.hasError('required')">Phone Number is required.</span>
                         <span class="p-error"
                             *ngIf="createAndEditForm.controls.phone.errors?.minlength && createAndEditForm.controls.phone.errors?.maxlength || createAndEditForm.controls.phone.errors?.pattern">Please
@@ -34,7 +34,7 @@
                         <p-dropdown placeholder="Select Country" [options]="country" optionLabel="name"
                             optionValue="code" formControlName="country" [showClear]="true">
                         </p-dropdown>
-                            <span class="p-error" *ngIf="createAndEditForm.get('country')?.touched &&
+                        <span class="p-error" *ngIf="createAndEditForm.get('country')?.touched &&
                             createAndEditForm.get('country')?.hasError('required')">Country is required.</span>
                     </div>
                 </div>
@@ -158,7 +158,7 @@
                         formControlName="shipper" [showClear]="true"> </p-dropdown>
                 </div>
             </div>
-         </div>
+        </div>
 
         <div *ngIf="activeIndex === 2">
             <br>
